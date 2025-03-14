@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trimiteri</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<!-- Bara de meniu -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Aplicația de Analize</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/pacienti">Pacienți</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/medici">Medici</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/trimiteri">Trimiteri</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/analize">Analize</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/categorii">Categorii</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/buletine">Buletine de Analize</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/analiza-buletin">Analize Buletin</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h1 class="text-center">Lista Trimiterilor</h1>
+    <table class="table table-bordered mt-3">
+        <thead>
+        <tr>
+            <th>ID Trimitere</th>
+            <th>Data Emiterii</th>
+            <th>ID Pacient</th>
+            <th>ID Medic</th>
+            <th>Acțiuni</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="trimitere : ${trimiteri}">
+            <td th:text="${trimitere.idTrimitere}"></td>
+            <td th:text="${trimitere.dataEmiterii}"></td>
+            <td th:text="${trimitere.pacientId}"></td>
+            <td th:text="${trimitere.medicId}"></td>
+            <td>
+                <!-- Link pentru ștergere -->
+                <a th:href="@{'/trimiteri/delete/' + ${trimitere.idTrimitere}}"
+                   class="btn btn-danger btn-sm"
+                   onclick="return confirm('Ești sigur că vrei să ștergi această trimitere?')">Șterge</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Buton pentru redirecționare către pagina detalii -->
+    <div class="text-center mt-4">
+        <a href="/trimiteri/detalii" class="btn btn-info">Vezi Detalii</a>
+    </div>
+
+    <h2 class="text-center mt-5">Adaugă Trimitere</h2>
+
+    <!-- Mesaj de eroare pentru pacient inexistent -->
+    <div th:if="${pacientError != null}" class="alert alert-danger">
+        <p th:text="${pacientError}"></p>
+    </div>
+
+    <!-- Mesaj de eroare pentru medic inexistent -->
+    <div th:if="${medicError != null}" class="alert alert-danger">
+        <p th:text="${medicError}"></p>
+    </div>
+
+    <form th:action="@{/trimiteri/add}" method="post" class="mt-3">
+        <div class="mb-3">
+            <label for="dataEmiterii" class="form-label">Data Emiterii</label>
+            <input type="date" name="dataEmiterii" id="dataEmiterii" class="form-control" th:value="${dataEmiterii}" required>
+        </div>
+        <div class="mb-3">
+            <label for="pacientId" class="form-label">ID Pacient</label>
+            <input type="number" name="pacientId" id="pacientId" class="form-control" th:value="${pacientId}" required>
+        </div>
+        <div class="mb-3">
+            <label for="medicId" class="form-label">ID Medic</label>
+            <input type="number" name="medicId" id="medicId" class="form-control" th:value="${medicId}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Adaugă</button>
+    </form>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

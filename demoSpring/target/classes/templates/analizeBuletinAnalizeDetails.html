@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalii Complete Analize</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center">Detalii Complete Analize</h1>
+    <table class="table table-bordered mt-3">
+        <thead>
+        <tr>
+            <th>ID Analiza</th>
+            <th>ID Buletin</th>
+            <th>Status Analiza</th>
+            <th>Valoare Numerică</th>
+            <th>Valoare Minimă</th>
+            <th>Valoare Maximă</th>
+            <th>Tip</th>
+            <th>Unitate Măsură</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="analiza : ${detailedAnalize}">
+            <td th:text="${analiza.analiza_id}"></td>
+            <td th:text="${analiza.buletin_id}"></td>
+            <td th:text="${analiza.status_analiza}"></td>
+            <td th:text="${analiza.valoare_numerica}"></td>
+            <td th:text="${analiza.valoare_minima}"></td>
+            <td th:text="${analiza.valoare_maxima}"></td>
+            <td th:text="${analiza.tip}"></td>
+            <td th:text="${analiza.unitate_masura}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="text-center mt-4">
+        <a href="/analiza-buletin" class="btn btn-info">Înapoi la Analizele din buletine</a>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

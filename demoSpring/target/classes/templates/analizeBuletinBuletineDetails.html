@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalii Analize Buletin</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+  <h1 class="text-center">Detalii Complete Buletine</h1>
+  <table class="table table-bordered mt-3">
+    <thead>
+    <tr>
+      <th>ID Analiza</th>
+      <th>ID Buletin</th>
+      <th>Status Analiza</th>
+      <th>Valoare Numerică</th>
+      <th>Data Emiterii Buletinului</th>
+      <th>Data Recoltării</th>
+      <th>Data Emiterii Trimiterii</th>
+      <th>Pacient</th>
+      <th>Medic</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="analizaBuletin : ${analizeBuletinDetails}">
+      <td th:text="${analizaBuletin.analiza_id}"></td>
+      <td th:text="${analizaBuletin.buletin_id}"></td>
+      <td th:text="${analizaBuletin.status_analiza}"></td>
+      <td th:text="${analizaBuletin.valoare_numerica}"></td>
+      <td th:text="${analizaBuletin.data_emiterii_buletin}"></td>
+      <td th:text="${analizaBuletin.data_recoltarii}"></td>
+      <td th:text="${analizaBuletin.data_emiterii_trimitere}"></td>
+      <td th:text="${analizaBuletin.pacient_nume} + ' ' + ${analizaBuletin.pacient_prenume}"></td>
+      <td th:text="${analizaBuletin.medic_nume} + ' ' + ${analizaBuletin.medic_prenume}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- Buton pentru redirecționare către pagina detalii -->
+  <div class="text-center mt-4">
+    <a href="/analiza-buletin" class="btn btn-info">Inapoi la Analizele din buletine</a>
+  </div>
+
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

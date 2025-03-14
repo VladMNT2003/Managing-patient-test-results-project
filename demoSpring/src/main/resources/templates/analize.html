@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analize</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<!-- Bara de meniu -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Aplicația de Analize</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/pacienti">Pacienți</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/medici">Medici</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/trimiteri">Trimiteri</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/analize">Analize</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/categorii">Categorii</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/buletine">Buletine de Analize</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/analiza-buletin">Analize Buletin</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h1 class="text-center">Lista Analize</h1>
+    <table class="table table-bordered mt-3">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Valoare Minima</th>
+            <th>Valoare Maxima</th>
+            <th>ID Categorie</th>
+            <th>Acțiuni</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="analiza : ${listaAnalize}">
+            <td th:text="${analiza.idAnaliza}"></td>
+            <td th:text="${analiza.valoareMinima}"></td>
+            <td th:text="${analiza.valoareMaxima}"></td>
+            <td th:text="${analiza.idCategorie}"></td>
+            <td>
+                <!-- Link pentru ștergere -->
+                <a th:href="@{'/analize/sterge/' + ${analiza.idAnaliza}}"
+                   class="btn btn-danger btn-sm"
+                   onclick="return confirm('Ești sigur că vrei să ștergi această analiză?')">Șterge</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Buton pentru redirecționare către pagina detalii -->
+    <div class="text-center mt-4">
+        <a href="/analize/detalii" class="btn btn-info">Vezi Detalii</a>
+    </div>
+
+    <!-- Mesaj de eroare pentru valoare minimă mai mare decât valoarea maximă -->
+    <div th:if="${valoareError != null}" class="alert alert-danger">
+        <p th:text="${valoareError}"></p>
+    </div>
+
+    <!-- Mesaj de eroare pentru categoria inexistentă -->
+    <div th:if="${categorieError != null}" class="alert alert-danger">
+        <p th:text="${categorieError}"></p>
+    </div>
+
+    <h2 class="text-center mt-5">Adaugă Analiză</h2>
+    <form th:action="@{/analize/adauga}" method="post" class="mt-3">
+        <div class="mb-3">
+            <label for="valoareMinima" class="form-label">Valoare Minima</label>
+            <input type="number" step="0.01" name="valoareMinima" id="valoareMinima" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="valoareMaxima" class="form-label">Valoare Maxima</label>
+            <input type="number" step="0.01" name="valoareMaxima" id="valoareMaxima" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="idCategorie" class="form-label">ID Categorie</label>
+            <input type="number" name="idCategorie" id="idCategorie" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Adaugă</button>
+    </form>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

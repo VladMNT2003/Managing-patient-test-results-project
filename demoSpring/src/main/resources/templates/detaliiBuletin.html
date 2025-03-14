@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buletine Detalii</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+  <h1 class="text-center">Detalii Buletine</h1>
+  <table class="table table-bordered mt-3">
+    <thead>
+    <tr>
+      <th>ID Analiza</th>
+      <th>Status Analiza</th>
+      <th>Valoare Numerică</th>
+      <th>Data Emiterii Buletin</th>
+      <th>Data Recoltării</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="buletin : ${buletineDetails}">
+      <td th:text="${buletin.analiza_id}"></td>
+      <td th:text="${buletin.status_analiza}"></td>
+      <td th:text="${buletin.valoare_numerica}"></td>
+      <td th:text="${buletin.data_emiterii_buletin}"></td>
+      <td th:text="${buletin.data_recoltarii}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Buton pentru redirecționare către pagina detalii -->
+<div class="text-center mt-4">
+  <a href="/analiza-buletin/detalii-buletine" class="btn btn-info">Vezi Detalii Avansate</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
